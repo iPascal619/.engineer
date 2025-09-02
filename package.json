@@ -23,7 +23,7 @@
     "type-check": "cd apps/landing && npm run type-check",
     "type-check:landing": "cd apps/landing && npm run type-check",
     "clean": "rimraf apps/*/dist",
-    "install:all": "npm install && cd apps/landing && npm install && cd ../../packages/ui && npm install"
+    "install:all": "npm install && cd apps/landing && npm install"
   },
   "devDependencies": {
     "@types/node": "^22.0.0",
