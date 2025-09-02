@@ -1,8 +1,8 @@
 {
-  "buildCommand": "cd apps/landing && npm install && npm run build",
+  "buildCommand": "npm install --prefix ./apps/landing && npm run build --prefix ./apps/landing",
   "outputDirectory": "apps/landing/dist",
   "installCommand": "npm install",
-  "framework": "vite",
+  "framework": null,
   "rewrites": [
     {
       "source": "/(.*)",
