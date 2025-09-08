@@ -269,7 +269,7 @@
       <div class="footer-container">
         <div class="footer-content">
           <div class="footer-brand">
-            <h2 class="footer-logo">&lt;Pascal/&gt;</h2>
+            <h2 class="footer-logo">Pascal Onuoha</h2>
             <p class="footer-tagline">Software Engineer</p>
           </div>
           
