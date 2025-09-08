@@ -213,7 +213,7 @@ const getProjectImage = (project: any) => {
     case 'aetherflow':
       return aetherflowImage
     case 'banking-api':
-      return '/img/banking-api.jpg'
+      return '/img/api-integration.webp'
     case 'astro':
       return astroImage
     default:
