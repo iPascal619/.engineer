@@ -6,11 +6,11 @@
   "workspaces": [
     "apps/landing"
   ],
-  "homepage": "https://ipascal-portfolio.dev",
-  "description": "Pascal Kelechi's portfolio website built with Vue 3 + Vite",
-  "repository": "https://github.com/iPascal619/portfolio",
-  "bugs": "https://github.com/iPascal619/portfolio/issues",
-  "author": "Pascal Kelechi <kelexypascal@gmail.com> (https://linkedin.com/in/pascal-kelechi)",
+  "homepage": "https://p4sca1.tech",
+  "description": "Pascal Onuoha's portfolio website built with Vue 3 + Vite",
+  "repository": "https://github.com/iPascal619/.engineer",
+  "bugs": "https://github.com/iPascal619/.engineer/issues",
+  "author": "Pascal Onuoha <pascalonuoha324@gmail.com> (https://linkedin.com/in/pascal-onuoha)",
   "scripts": {
     "dev": "cd apps/landing && npm run dev",
     "dev:landing": "cd apps/landing && npm run dev",
