@@ -190,12 +190,12 @@ const allProjects = ref([
   },
   {
     id: 7,
-    title: "API Gateway Service",
-    description: "Microservices API gateway with rate limiting, authentication, and request routing capabilities",
-    technologies: ["Go", "Docker", "Redis", "PostgreSQL"],
-    github: "https://github.com/iPascal619/api-gateway-service",
+    title: "Banking API",
+    description: "Comprehensive banking system with double-entry ledger accounting, JWT authentication, and secure transaction management",
+    technologies: ["NestJS", "TypeScript", "TypeORM", "SQLite", "JWT", "Swagger"],
+    github: "https://github.com/iPascal619/banking-API",
     liveDemo: null,
-    image: "astro"
+    image: "banking-api"
   }
 ])
 
@@ -212,6 +212,8 @@ const getProjectImage = (project: any) => {
       return tokenswiftImage
     case 'aetherflow':
       return aetherflowImage
+    case 'banking-api':
+      return '/img/banking-api.jpg'
     case 'astro':
       return astroImage
     default:
