@@ -324,12 +324,12 @@ const projects = ref([
   },
   {
     id: 3,
-    title: "Simba Supermarket Redesign",
-    description: "Modern e-commerce platform with intuitive user experience",
-    technologies: ["Vue.js", "Node.js", "MongoDB", "Stripe"],
-    github: "https://github.com/iPascal619/Simba-supermarket-online-store-redesign",
-    liveDemo: "https://simba-supermarket-online-store-rede.vercel.app/",
-    features: ["Product Browsing", "Search Functionality", "Shopping Cart", "Checkout Process", "User Authentication"]
+    title: "Synapse AI",
+    description: "AI-powered fraud detection platform with real-time monitoring and 99.5% accuracy",
+    technologies: ["Next.js", "TypeScript", "React", "Tailwind CSS", "AI/ML"],
+    github: "https://github.com/iPascal619/Synapse-AI",
+    liveDemo: "https://synapse-ai-omega-one.vercel.app/",
+    features: ["Real-time Fraud Detection", "Behavioral Analytics", "Risk Scoring", "Compliance Automation", "Multi-channel Protection"]
   }
 ])
 
@@ -340,6 +340,8 @@ const getProjectImage = (project: any) => {
       return aetherflowImage
     case 'Simba Supermarket Redesign':
       return simbaImage
+    case 'Synapse AI':
+      return '/img/synapse AI.jpg'
     default:
       return simbaImage
   }

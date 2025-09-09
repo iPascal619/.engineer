@@ -176,17 +176,17 @@ const allProjects = ref([
     description: "Professional cryptocurrency trading platform with real-time market data and secure payment processing",
     technologies: ["Node.js", "Express", "MongoDB", "JavaScript", "Stripe", "TradingView", "Binance API"],
     github: "https://github.com/iPascal619/Crypto-dash",
-    liveDemo: "https://crypto-dash-psi.vercel.app/",
+    liveDemo: "https://cryptodash.tech/",
     image: "cryptodash"
   },
   {
     id: 6,
-    title: "Social Media Analytics",
-    description: "Analytics dashboard for social media metrics with data visualization and reporting features",
-    technologies: ["Angular", "PHP", "MySQL", "Chart.js"],
-    github: "https://github.com/iPascal619/social-media-analytics",
-    liveDemo: null,
-    image: "astro"
+    title: "Synapse AI",
+    description: "AI-powered fraud detection platform with real-time monitoring, 99.5% accuracy, and advanced behavioral analytics for enterprise security",
+    technologies: ["Next.js", "TypeScript", "React", "Tailwind CSS", "AI/ML", "Vercel"],
+    github: "https://github.com/iPascal619/Synapse-AI",
+    liveDemo: "https://synapse-ai-omega-one.vercel.app/",
+    image: "synapse-ai"
   },
   {
     id: 7,
@@ -214,6 +214,8 @@ const getProjectImage = (project: any) => {
       return aetherflowImage
     case 'banking-api':
       return '/img/api-integration.webp'
+    case 'synapse-ai':
+      return '/img/synapse AI.jpg'
     case 'astro':
       return astroImage
     default:
