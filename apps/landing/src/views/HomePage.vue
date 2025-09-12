@@ -293,8 +293,17 @@
 import { onMounted, onUnmounted, ref, computed } from 'vue'
 import { useAppStore } from '../stores/app'
 import { storeToRefs } from 'pinia'
+import { useSEO } from '../composables/useSEO'
 import astroImage from '../assets/astro.jpg'
 import simbaImage from '../assets/simbaaa.png'
+
+// SEO optimization for homepage
+useSEO({
+  title: 'Pascal Onuoha - Full-Stack Software Engineer | AI & Blockchain Developer',
+  description: 'Pascal Onuoha - Experienced Software Engineer specializing in full-stack development, AI fraud detection, blockchain applications, and mobile app development. View portfolio with 7+ projects including Synapse AI, Banking API, and CryptoDash.',
+  keywords: 'Pascal Onuoha, Software Engineer, Full Stack Developer, AI Developer, Blockchain Developer, NestJS, React, Vue.js, TypeScript, JavaScript, Python, Solidity, Web3, Mobile Development, Portfolio',
+  canonical: 'https://p4sca1.tech/'
+})
 
 // Import project images from public directory
 const aetherflowImage = '/img/Aetherflow.jpg'

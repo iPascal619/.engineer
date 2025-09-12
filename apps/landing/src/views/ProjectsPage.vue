@@ -113,6 +113,15 @@
 import { ref, computed } from 'vue'
 import { useRouter } from 'vue-router'
 import { useAppStore } from '../stores/app'
+import { useSEO } from '../composables/useSEO'
+
+// SEO optimization for projects page
+useSEO({
+  title: 'Pascal Onuoha - Software Projects Portfolio | AI, Blockchain & Web Apps',
+  description: 'Explore Pascal Onuoha\'s software development projects including Synapse AI fraud detection, Banking API, CryptoDash trading platform, AetherFlow healthcare app, and more innovative solutions.',
+  keywords: 'Pascal Onuoha projects, software portfolio, AI projects, blockchain apps, web development, NestJS API, React apps, Vue.js projects, cryptocurrency platform, healthcare technology',
+  canonical: 'https://p4sca1.tech/projects'
+})
 
 // Import project images - using the images from landing/public/img
 const simbaImage = '/img/simbaaa.png'

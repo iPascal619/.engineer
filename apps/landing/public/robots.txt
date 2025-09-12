@@ -1,0 +1,11 @@
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://p4sca1.tech/sitemap.xml
+
+# Block access to admin/private areas (none for this portfolio)
+# Disallow: /admin/
+
+# Allow all search engines to index the portfolio
+Crawl-delay: 1
