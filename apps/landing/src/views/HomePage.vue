@@ -28,7 +28,7 @@
           </div>
           
           <div class="pitch-visual">
-            <img ref="astroImageRef" :src="astroImage" alt="Astronaut" class="astro-image" />
+            <img :src="astroImage" alt="Astronaut" class="astro-image" />
           </div>
         </div>
       </div>
@@ -311,19 +311,6 @@ const aetherflowImage = '/img/Aetherflow.jpg'
 const store = useAppStore()
 const { contactClickedFromNav } = storeToRefs(store)
 
-// Parallax effect for astronaut image
-const astroImageRef = ref<HTMLElement | null>(null)
-
-const handleParallaxScroll = () => {
-  if (!astroImageRef.value) return
-  
-  const scrolled = window.pageYOffset
-  const parallaxSpeed = 0.5 // Subtle parallax effect
-  
-  // Apply transform to create parallax effect
-  astroImageRef.value.style.transform = `translateY(${scrolled * parallaxSpeed}px)`
-}
-
 // Project data
 const projects = ref([
   {
@@ -415,9 +402,6 @@ const scrollToSection = (sectionId: string) => {
 }
 
 onMounted(() => {
-  // Set up parallax scroll listener
-  window.addEventListener('scroll', handleParallaxScroll)
-  
   // Set up intersection observer for section tracking
   const sections = document.querySelectorAll('[data-section]')
   
@@ -463,9 +447,6 @@ onMounted(() => {
 })
 
 onUnmounted(() => {
-  // Clean up parallax scroll listener
-  window.removeEventListener('scroll', handleParallaxScroll)
-  
   if (observer) {
     observer.disconnect()
   }
@@ -539,14 +520,7 @@ onUnmounted(() => {
   transform: translateY(-5px) scale(1.02);
 }
 
-@keyframes float {
-  0%, 100% {
-    transform: translateY(0px);
-  }
-  50% {
-    transform: translateY(-10px);
-  }
-}
+
 
 .cavalier {
   margin-bottom: 3rem;
