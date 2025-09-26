@@ -185,7 +185,7 @@ const scrollToSection = (sectionId: string) => {
   position: relative;
   font-family: 'Montserrat', sans-serif;
   font-weight: 400;
-  font-size: 1.2rem;
+  font-size: 1.4rem;
 }
 
 .logo-p {
@@ -195,22 +195,6 @@ const scrollToSection = (sectionId: string) => {
 .brace {
   color: var(--theme-text);
   font-weight: 600;
-}
-
-.brand-text::after {
-  content: "";
-  position: absolute;
-  bottom: -2px;
-  left: 0;
-  right: 0;
-  height: 2px;
-  background: var(--color-lime);
-  transform: scaleX(0);
-  transition: transform var(--transition-normal);
-}
-
-.brand:hover .brand-text::after {
-  transform: scaleX(1);
 }
 
 .main-nav {
