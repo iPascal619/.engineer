@@ -13,7 +13,7 @@
             
             <div class="cavalier">
               <p class="pitch-description">
-                I craft robust solutions across web, mobile, and blockchain platforms with expertise in multiple programming languages and frameworks.
+                Like an astronaut exploring new worlds, I thrive on navigating the complexities of modern technology to build what's next—from the server to the screen.
               </p>
             </div>
             
@@ -22,7 +22,7 @@
                 Full-stack developer with expertise in web (PHP, JavaScript), mobile (Flutter), and blockchain (Solidity) technologies.
               </li>
               <li>
-                Experienced in building everything from responsive frontends to smart contracts and native applications.
+                I build everything from responsive frontends to smart contracts and native applications.
               </li>
             </ul>
           </div>
