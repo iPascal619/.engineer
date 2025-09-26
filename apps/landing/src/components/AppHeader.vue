@@ -3,7 +3,9 @@
     <div class="header-inner">
       <!-- Logo/Brand -->
       <div class="brand">
-        <span class="brand-text">&lt;Pascal/&gt;</span>
+        <span class="brand-text">
+          <span class="brace">{</span><span class="logo-p">P</span>ascal<span class="brace">}</span>
+        </span>
       </div>
       
       <!-- Navigation -->
@@ -181,6 +183,18 @@ const scrollToSection = (sectionId: string) => {
 
 .brand-text {
   position: relative;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 400;
+  font-size: 1.2rem;
+}
+
+.logo-p {
+  color: var(--color-lime);
+}
+
+.brace {
+  color: var(--theme-text);
+  font-weight: 600;
 }
 
 .brand-text::after {
