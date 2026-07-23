@@ -849,7 +849,27 @@ onUnmounted(() => {
 
 @media (max-width: 500px) {
   .skills-grid {
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+  }
+  
+  .skill-card {
+    padding: 1.2rem 0.8rem;
+  }
+  
+  .skill-card h3 {
+    font-size: 0.95rem;
+  }
+  
+  .skill-card p {
+    font-size: 0.8rem;
+    margin-bottom: 0.5rem;
+  }
+  
+  .skill-icon {
+    width: 36px;
+    height: 36px;
+    margin-bottom: 0.75rem;
   }
 }
 
@@ -1162,18 +1182,32 @@ onUnmounted(() => {
 
 /* Responsive Showcase */
 @media (max-width: 900px) {
+  .showcase-section {
+    padding: 3rem 0;
+    min-height: auto;
+  }
+
   .showcase-container {
     grid-template-columns: 1fr;
     gap: 1.5rem;
+    min-width: 0;
+    width: 100%;
   }
   
   .showcase-sidebar {
     flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: flex-start;
     overflow-x: auto;
+    overflow-y: hidden;
     padding: 1rem !important;
-    gap: 0.5rem;
-    scrollbar-width: none;
+    gap: 0.75rem;
     border-radius: 16px;
+    width: 100%;
+    min-width: 0; /* Extremely important: allows grid item to shrink below content width */
+    -webkit-overflow-scrolling: touch; /* Apple momentum scrolling */
+    scrollbar-width: none;
+    -ms-overflow-style: none;
   }
   
   .showcase-sidebar::-webkit-scrollbar {
@@ -1182,6 +1216,7 @@ onUnmounted(() => {
   
   .showcase-tab {
     white-space: nowrap;
+    flex: 0 0 auto; /* Crucial: stops the buttons from shrinking */
     padding: 0.75rem 1.25rem;
     font-size: 0.95rem;
   }
@@ -1205,7 +1240,18 @@ onUnmounted(() => {
   }
   
   .view-resume-link {
-    display: none; /* Hide on mobile to save horizontal space */
+    display: flex;
+    white-space: nowrap;
+    flex: 0 0 auto;
+    align-items: center;
+    margin-top: 0;
+    padding-top: 0;
+    border-top: none;
+    border-left: 1px solid var(--theme-border, rgba(255,255,255,0.1));
+    margin-left: 0.5rem;
+    padding-left: 1.25rem;
+    padding-right: 1.25rem;
+    font-size: 0.95rem;
   }
   
   .showcase-display {
@@ -1278,6 +1324,33 @@ onUnmounted(() => {
   .projects-grid {
     grid-template-columns: 1fr;
     gap: 2.5rem;
+  }
+  
+  .carriageway-section .projects-grid {
+    display: flex;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    overflow-y: hidden;
+    gap: 1rem;
+    padding-bottom: 1rem;
+    margin-top: 2rem;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    margin-left: -1rem;
+    margin-right: -1rem;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    min-width: 0;
+  }
+  
+  .carriageway-section .projects-grid::-webkit-scrollbar {
+    display: none;
+  }
+  
+  .carriageway-section .project-card {
+    flex: 0 0 85vw;
+    max-width: 320px;
   }
 }
 
@@ -1749,13 +1822,26 @@ onUnmounted(() => {
 
 @media (max-width: 480px) {
   .contact-grid {
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(2, 1fr);
     gap: 0.8rem;
   }
   
   .contact-card {
-    padding: 1rem;
+    padding: 1rem 0.5rem;
     min-height: 100px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+  
+  .contact-details h4 {
+    font-size: 0.95rem;
+  }
+  
+  .contact-details p {
+    font-size: 0.75rem;
+    word-break: break-all;
   }
   
   .contact-description {
@@ -1821,9 +1907,9 @@ onUnmounted(() => {
    FOOTER
    ======================================== */
 .elegant-footer {
-  background: var(--theme-bg);
+  background: linear-gradient(to bottom, transparent, rgba(156, 220, 8, 0.03));
   border-top: 1px solid var(--theme-border);
-  padding: 3rem 0 2rem;
+  padding: 4rem 0 2rem;
   position: relative;
   opacity: 0;
   transform: translateY(30px);
@@ -1929,7 +2015,8 @@ onUnmounted(() => {
 
 /* Dark mode footer */
 .dark-mode .elegant-footer {
-  border-top-color: rgba(255, 255, 255, 0.1);
+  background: linear-gradient(to bottom, transparent, rgba(156, 220, 8, 0.05));
+  border-top-color: rgba(255, 255, 255, 0.05);
 }
 
 .dark-mode .footer-content {
@@ -1966,15 +2053,7 @@ onUnmounted(() => {
   }
   
   .back-up-button {
-    position: relative;
-    top: 0;
-    left: 0;
-    transform: none;
-    margin-bottom: 1rem;
-  }
-  
-  .back-up-button.visible {
-    transform: none;
+    display: none !important;
   }
 }
 
