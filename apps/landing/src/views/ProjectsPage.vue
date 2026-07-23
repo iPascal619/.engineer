@@ -193,8 +193,18 @@ const setFilter = (filter: string) => {
   activeFilter.value = filter
 }
 
-// All projects data (7 projects)
+// All projects data (8 projects)
 const allProjects = ref([
+  {
+    id: 8,
+    title: "MineTech",
+    description: "Mining operations intelligence platform with local AI workflows for incident triage and RAG knowledge base",
+    technologies: ["Next.js", "TypeScript", "PostgreSQL", "Ollama", "pgvector"],
+    github: "https://github.com/iPascal619/Minetech-LLM-and-Traige-support",
+    liveDemo: null,
+    image: "minetech",
+    category: "ai"
+  },
   {
     id: 1,
     title: "Simba Supermarket Redesign",
@@ -276,6 +286,8 @@ const filteredProjects = computed(() => {
 // Function to get project image
 const getProjectImage = (project: any) => {
   switch (project.image) {
+    case 'minetech':
+      return 'https://raw.githubusercontent.com/iPascal619/Minetech-LLM-and-Traige-support/main/soda.svg'
     case 'simba':
       return simbaImage
     case 'cryptodash':
