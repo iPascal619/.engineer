@@ -201,7 +201,7 @@ const allProjects = ref([
     description: "Mining operations intelligence platform with local AI workflows for incident triage and RAG knowledge base",
     technologies: ["Next.js", "TypeScript", "PostgreSQL", "Ollama", "pgvector"],
     github: "https://github.com/iPascal619/Minetech-LLM-and-Traige-support",
-    liveDemo: null,
+    liveDemo: "https://minetech-senior-full-stack-develope.vercel.app/",
     image: "minetech",
     category: "ai"
   },
