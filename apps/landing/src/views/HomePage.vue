@@ -90,7 +90,7 @@
               @click="activeExperience = index"
             >
               <span class="tab-indicator"></span>
-              <div class="tab-icon" v-html="exp.icon"></div>
+              <img class="tab-icon-img" :src="'data:image/svg+xml;utf8,' + encodeURIComponent(exp.icon)" alt="" />
               <span class="tab-name">{{ exp.shortName }}</span>
             </button>
             
@@ -339,7 +339,7 @@ const experiences = [
     role: 'Software Engineer',
     period: 'Dec 2025 - May 2026',
     description: 'Elevated overall software reliability and sprint delivery timelines within an Agile framework. Delivered core full-stack features using Next.js and Go, while optimizing internal CI/CD engineering workflows to enforce strict Silicon Valley code quality standards.',
-    icon: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg>'
+    icon: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z"/><path d="M12 15l-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z"/><path d="M9 12H4s.55-3.03 2-4c1.62-1.08 5 0 5 0"/><path d="M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5"/></svg>'
   },
   {
     company: 'ThinkGreen-Afrika',
@@ -347,7 +347,7 @@ const experiences = [
     role: 'CTO & Lead Full Stack Developer',
     period: 'Aug 2024 - Dec 2025',
     description: 'Spearheaded front-end development and served as CTO for a startup platform serving 1500+ active users. Architected responsive UI components using React.js, orchestrated seamless third-party API integrations, and established strict Git workflows and unit testing strategies.',
-    icon: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>'
+    icon: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M11 20A7 7 0 0 1 9.8 6.9C15.5 4.9 17 3.5 17 3.5s1.5 2 2.3 6.7A7 7 0 0 1 11 20z"/><path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"/></svg>'
   },
   {
     company: 'Puzzle Labs',
@@ -355,7 +355,7 @@ const experiences = [
     role: 'Full Stack Developer',
     period: 'May 2023 - Sep 2024',
     description: 'Collaborated with cross-functional teams to design and deploy scalable web applications for fintech, health, and logistics clients. Built RESTful APIs in Node.js, developed responsive interfaces with React and TailwindCSS, and optimized MongoDB architectures.',
-    icon: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><line x1="9" y1="3" x2="9" y2="21"></line></svg>'
+    icon: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M19.439 7.85c-.049.322.059.648.289.878l1.568 1.568c.47.47.706 1.087.706 1.704s-.235 1.233-.706 1.704l-1.611 1.611a.98.98 0 0 1-.837.276c-.47-.07-.802-.48-.743-.948a2.54 2.54 0 0 0-1.296-2.519 2.54 2.54 0 0 0-2.838.246 2.54 2.54 0 0 0-.191 3.7l.292.292c.322.322.28.838-.095 1.106a2.41 2.41 0 0 1-1.413.46H11.12a2.41 2.41 0 0 1-2.41-2.41v-.457c0-.467-.355-.85-.82-.913a2.54 2.54 0 0 0-2.519 1.296 2.54 2.54 0 0 0 .246 2.838c.307.357.237.892-.157 1.157A2.41 2.41 0 0 1 4.05 18.6l-1.568-1.568a2.41 2.41 0 0 1 0-3.408l.292-.292a.98.98 0 0 1 .837-.276c.47.07.802.48.743.948a2.54 2.54 0 0 0 1.296 2.519 2.54 2.54 0 0 0 2.838-.246 2.54 2.54 0 0 0 .191-3.7l-.292-.292c-.322-.322-.28-.838.095-1.106A2.41 2.41 0 0 1 9.88 11h1.343a2.41 2.41 0 0 1 2.41 2.41v.457c0 .467.355.85.82.913a2.54 2.54 0 0 0 2.519-1.296 2.54 2.54 0 0 0-.246-2.838z"/></svg>'
   },
   {
     company: 'Mira Technologies',
@@ -363,7 +363,7 @@ const experiences = [
     role: 'Software Engineer, Data Tools',
     period: 'Dec 2022 - Feb 2024',
     description: 'Designed and maintained internal web-based data annotation tools using Python (FastAPI) and React. Automated data ingestion workflows for machine learning models, and managed the deployment of these tools using Docker and Kubernetes on GCP.',
-    icon: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="9" ry="3"></ellipse><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"></path><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"></path></svg>'
+    icon: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="2"/><rect x="9" y="9" width="6" height="6"/><path d="M15 2v2"/><path d="M15 20v2"/><path d="M2 15h2"/><path d="M2 9h2"/><path d="M20 15h2"/><path d="M20 9h2"/><path d="M9 2v2"/><path d="M9 20v2"/></svg>'
   },
   {
     company: 'Pahylcon Tech',
@@ -371,7 +371,7 @@ const experiences = [
     role: 'Web Development Intern',
     period: 'Feb 2021 - Apr 2021',
     description: 'Developed and deployed full-stack web applications using modern JavaScript frameworks. Contributed to the redesign of the company\'s client portal, optimized database queries, and implemented comprehensive unit testing strategies.',
-    icon: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>'
+    icon: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>'
   }
 ]
 
@@ -1040,24 +1040,26 @@ onUnmounted(() => {
   letter-spacing: 0.02em;
 }
 
-.tab-icon {
-  position: relative;
-  z-index: 2;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: inherit;
+.tab-icon-img {
+  width: 28px;
+  height: 28px;
+  min-width: 28px;
+  border-radius: 6px;
+  padding: 5px;
+  background: rgba(156, 220, 8, 0.1);
+  flex-shrink: 0;
+  opacity: 0.6;
+  transition: all 0.3s ease;
+  filter: brightness(0) saturate(100%) invert(75%) sepia(60%) saturate(500%) hue-rotate(35deg) brightness(100%);
 }
 
-.tab-icon svg {
-  width: 20px;
-  height: 20px;
-  opacity: 0.7;
-  transition: opacity 0.3s ease;
-}
-
-.showcase-tab.active .tab-icon svg {
+.showcase-tab.active .tab-icon-img {
   opacity: 1;
+  background: rgba(156, 220, 8, 0.18);
+}
+
+.showcase-tab:hover .tab-icon-img {
+  opacity: 0.85;
 }
 
 .view-resume-link {
@@ -1277,11 +1279,50 @@ onUnmounted(() => {
    CARRIAGEWAY SECTION (Projects)
    ======================================== */
 .carriageway-section {
-  background: var(--theme-carriageway-bg);
+  background: linear-gradient(160deg, #0a1128 0%, #0f172a 35%, #162040 70%, #0f172a 100%);
   color: white;
   border-bottom: 1px solid rgba(71, 85, 105, 0.2);
   padding-top: 6rem;
   padding-bottom: 6rem;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Subtle grid texture overlay */
+.carriageway-section::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: 
+    linear-gradient(rgba(156, 220, 8, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(156, 220, 8, 0.03) 1px, transparent 1px);
+  background-size: 60px 60px;
+  pointer-events: none;
+  z-index: 0;
+  -webkit-mask-image: radial-gradient(ellipse at 50% 50%, black 10%, transparent 75%);
+  mask-image: radial-gradient(ellipse at 50% 50%, black 10%, transparent 75%);
+}
+
+/* Soft radial glow accent */
+.carriageway-section::after {
+  content: '';
+  position: absolute;
+  top: -30%;
+  right: -10%;
+  width: 600px;
+  height: 600px;
+  background: radial-gradient(circle, rgba(156, 220, 8, 0.04) 0%, transparent 70%);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.carriageway-section > * {
+  position: relative;
+  z-index: 1;
 }
 
 @media (max-width: 768px) {
