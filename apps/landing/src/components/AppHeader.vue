@@ -8,68 +8,31 @@
         </span>
       </div>
       
-      <!-- Navigation -->
-      <nav class="main-nav" id="section-nav">
+      <!-- Desktop Navigation -->
+      <nav class="main-nav" id="section-nav" :class="{ 'nav-open': mobileMenuOpen }">
         <ul class="nav-list">
-          <li class="nav-item">
+          <li class="nav-item" v-for="(item, index) in navItems" :key="item.id">
             <a 
-              href="#une" 
+              :href="'#' + item.id" 
               class="nav-link"
-              :class="{ active: currentSection === 'une' }"
-              @click="scrollToSection('une')"
+              :class="{ active: currentSection === item.id }"
+              @click.prevent="handleNavClick(item.id)"
             >
-              <span class="nav-number">01</span>
-              <span class="nav-text">Pitch</span>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a 
-              href="#deux" 
-              class="nav-link"
-              :class="{ active: currentSection === 'deux' }"
-              @click="scrollToSection('deux')"
-            >
-              <span class="nav-number">02</span>
-              <span class="nav-text">Cornerstone</span>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a 
-              href="#trois" 
-              class="nav-link"
-              :class="{ active: currentSection === 'trois' }"
-              @click="scrollToSection('trois')"
-            >
-              <span class="nav-number">03</span>
-              <span class="nav-text">Experience</span>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a 
-              href="#quatre" 
-              class="nav-link"
-              :class="{ active: currentSection === 'quatre' }"
-              @click="scrollToSection('quatre')"
-            >
-              <span class="nav-number">04</span>
-              <span class="nav-text">Carriageway</span>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a 
-              href="#cinq" 
-              class="nav-link"
-              :class="{ active: currentSection === 'cinq' }"
-              @click="scrollToSection('cinq')"
-            >
-              <span class="nav-number">05</span>
-              <span class="nav-text">Contact</span>
+              <span class="nav-number">{{ item.number }}</span>
+              <span class="nav-text">{{ item.label }}</span>
             </a>
           </li>
         </ul>
       </nav>
+
+      <!-- Mobile menu backdrop -->
+      <div 
+        class="mobile-backdrop" 
+        :class="{ 'active': mobileMenuOpen }"
+        @click="closeMobileMenu"
+      ></div>
       
-      <!-- Theme Toggle -->
+      <!-- Right controls -->
       <div class="external-links">        
         <!-- Theme Toggle Button -->
         <button 
@@ -104,12 +67,25 @@
             <line x1="18.36" y1="5.64" x2="19.78" y2="4.22" stroke="currentColor" stroke-width="2"/>
           </svg>
         </button>
+
+        <!-- Mobile Hamburger Button -->
+        <button 
+          class="hamburger-btn"
+          @click="toggleMobileMenu"
+          :aria-label="mobileMenuOpen ? 'Close menu' : 'Open menu'"
+          :class="{ 'open': mobileMenuOpen }"
+        >
+          <span class="hamburger-line"></span>
+          <span class="hamburger-line"></span>
+          <span class="hamburger-line"></span>
+        </button>
       </div>
     </div>
   </header>
 </template>
 
 <script setup lang="ts">
+import { ref } from 'vue'
 import { storeToRefs } from 'pinia'
 import { useAppStore } from '@/stores/app'
 
@@ -128,13 +104,36 @@ const appStore = useAppStore()
 const { isDarkMode } = storeToRefs(appStore)
 const { toggleTheme, handleNavigation } = appStore
 
+// Nav items
+const navItems = [
+  { id: 'une', number: '01', label: 'Pitch' },
+  { id: 'deux', number: '02', label: 'Cornerstone' },
+  { id: 'trois', number: '03', label: 'Experience' },
+  { id: 'quatre', number: '04', label: 'Carriageway' },
+  { id: 'cinq', number: '05', label: 'Contact' }
+]
+
+// Mobile menu state
+const mobileMenuOpen = ref(false)
+
+const toggleMobileMenu = () => {
+  mobileMenuOpen.value = !mobileMenuOpen.value
+  // Prevent body scroll when menu is open
+  document.body.style.overflow = mobileMenuOpen.value ? 'hidden' : ''
+}
+
+const closeMobileMenu = () => {
+  mobileMenuOpen.value = false
+  document.body.style.overflow = ''
+}
+
 const handleThemeToggle = () => {
   console.log('Theme toggle button clicked')
   toggleTheme()
 }
 
-const scrollToSection = (sectionId: string) => {
-  // Track navigation in store
+const handleNavClick = (sectionId: string) => {
+  closeMobileMenu()
   handleNavigation(sectionId as keyof typeof appStore.SECTION_MAP)
   
   const element = document.getElementById(sectionId)
@@ -145,6 +144,10 @@ const scrollToSection = (sectionId: string) => {
     })
   }
 }
+
+const scrollToSection = (sectionId: string) => {
+  handleNavClick(sectionId)
+}
 </script>
 
 <style scoped>
@@ -154,16 +157,16 @@ const scrollToSection = (sectionId: string) => {
   left: 0;
   right: 0;
   z-index: 1000;
-  background: var(--theme-header-bg, rgba(255, 255, 255, 0.95));
+  background: var(--theme-header-bg, rgba(255, 255, 255, 0.85));
   backdrop-filter: blur(20px);
-  border-bottom: 1px solid var(--theme-border, rgba(0, 0, 0, 0.1));
+  -webkit-backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--theme-border, rgba(0, 0, 0, 0.06));
   transition: all var(--transition-normal);
   padding: 1rem 0;
 }
 
 .compact {
   padding: 0.5rem 0;
-  background: var(--theme-header-bg, rgba(255, 255, 255, 0.98));
 }
 
 .header-inner {
@@ -175,10 +178,12 @@ const scrollToSection = (sectionId: string) => {
   justify-content: space-between;
 }
 
+/* Brand */
 .brand {
   font-size: 1.5rem;
   font-weight: 600;
   color: var(--theme-text);
+  z-index: 1001;
 }
 
 .brand-text {
@@ -197,6 +202,7 @@ const scrollToSection = (sectionId: string) => {
   font-weight: 600;
 }
 
+/* Desktop Navigation */
 .main-nav {
   flex: 1;
   display: flex;
@@ -238,6 +244,7 @@ const scrollToSection = (sectionId: string) => {
   letter-spacing: 0.1em;
   color: var(--color-lime);
   margin-bottom: 0.25rem;
+  font-family: var(--font-family-mono, monospace);
 }
 
 .nav-text {
@@ -250,6 +257,7 @@ const scrollToSection = (sectionId: string) => {
   color: var(--theme-text, var(--color-black));
 }
 
+/* Animated underline */
 .nav-link::after {
   content: "";
   position: absolute;
@@ -259,7 +267,8 @@ const scrollToSection = (sectionId: string) => {
   width: 30px;
   height: 2px;
   background: var(--color-lime);
-  transition: transform var(--transition-normal);
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  border-radius: 1px;
 }
 
 .nav-link.active::after,
@@ -267,16 +276,18 @@ const scrollToSection = (sectionId: string) => {
   transform: translateX(-50%) scaleX(1);
 }
 
+/* Right controls */
 .external-links {
   display: flex;
   align-items: center;
-  gap: 1rem;
+  gap: 0.75rem;
+  z-index: 1001;
 }
 
 .theme-toggle {
   background: none;
-  border: 1px solid var(--theme-border, rgba(0, 0, 0, 0.2));
-  border-radius: 8px;
+  border: 1px solid var(--theme-border, rgba(0, 0, 0, 0.1));
+  border-radius: 10px;
   padding: 0.5rem;
   cursor: pointer;
   display: flex;
@@ -288,13 +299,7 @@ const scrollToSection = (sectionId: string) => {
 
 .theme-toggle:hover {
   border-color: var(--color-lime);
-  background: rgba(156, 220, 8, 0.1);
-  color: var(--theme-text, var(--color-black));
-}
-
-.theme-toggle:hover {
-  border-color: var(--color-lime);
-  background: rgba(156, 220, 8, 0.1);
+  background: rgba(156, 220, 8, 0.08);
   color: var(--theme-text);
 }
 
@@ -308,41 +313,160 @@ const scrollToSection = (sectionId: string) => {
   transform: scale(1.1);
 }
 
-/* Mobile Navigation */
+/* Hamburger button — hidden on desktop */
+.hamburger-btn {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+  width: 36px;
+  height: 36px;
+  background: none;
+  border: 1px solid var(--theme-border, rgba(0, 0, 0, 0.1));
+  border-radius: 10px;
+  cursor: pointer;
+  padding: 8px;
+  transition: all var(--transition-normal);
+}
+
+.hamburger-btn:hover {
+  border-color: var(--color-lime);
+  background: rgba(156, 220, 8, 0.08);
+}
+
+.hamburger-line {
+  width: 18px;
+  height: 2px;
+  background: var(--theme-text);
+  border-radius: 1px;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  transform-origin: center;
+}
+
+/* Hamburger animation */
+.hamburger-btn.open .hamburger-line:nth-child(1) {
+  transform: translateY(7px) rotate(45deg);
+}
+
+.hamburger-btn.open .hamburger-line:nth-child(2) {
+  opacity: 0;
+  transform: scaleX(0);
+}
+
+.hamburger-btn.open .hamburger-line:nth-child(3) {
+  transform: translateY(-7px) rotate(-45deg);
+}
+
+/* Mobile backdrop */
+.mobile-backdrop {
+  display: none;
+}
+
+/* ========================================
+   MOBILE STYLES
+   ======================================== */
 @media (max-width: 768px) {
   .header-inner {
     padding: 0 1rem;
   }
-  
-  .nav-list {
-    gap: 1.5rem;
+
+  .hamburger-btn {
+    display: flex;
   }
-  
+
+  /* Mobile nav — slide-out drawer */
+  .main-nav {
+    position: fixed;
+    top: 0;
+    right: -100%;
+    width: 280px;
+    height: 100vh;
+    background: var(--theme-header-bg, rgba(255, 255, 255, 0.98));
+    backdrop-filter: blur(30px);
+    -webkit-backdrop-filter: blur(30px);
+    flex-direction: column;
+    justify-content: center;
+    padding: 4rem 2rem;
+    transition: right 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    z-index: 1000;
+    border-left: 1px solid var(--theme-border);
+    box-shadow: -10px 0 40px rgba(0, 0, 0, 0.1);
+  }
+
+  .dark-mode .main-nav {
+    background: rgba(15, 23, 42, 0.98);
+    box-shadow: -10px 0 40px rgba(0, 0, 0, 0.4);
+  }
+
+  .main-nav.nav-open {
+    right: 0;
+  }
+
+  .nav-list {
+    flex-direction: column;
+    gap: 0;
+    width: 100%;
+  }
+
+  .nav-link {
+    flex-direction: row;
+    gap: 1rem;
+    padding: 1rem 0.5rem;
+    border-bottom: 1px solid var(--theme-border);
+    justify-content: flex-start;
+  }
+
+  .nav-link::after {
+    display: none;
+  }
+
+  .nav-link.active {
+    background: rgba(156, 220, 8, 0.06);
+    border-radius: 8px;
+    border-bottom-color: transparent;
+  }
+
   .nav-number {
-    font-size: 0.7rem;
+    font-size: 0.8rem;
+    margin-bottom: 0;
+    min-width: 24px;
   }
   
   .nav-text {
-    font-size: 0.8rem;
+    font-size: 1rem;
+    font-weight: 500;
   }
-  
+
+  /* Mobile backdrop */
+  .mobile-backdrop {
+    display: block;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.4);
+    z-index: 999;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+  }
+
+  .mobile-backdrop.active {
+    opacity: 1;
+    pointer-events: auto;
+  }
+
   .brand {
     font-size: 1.2rem;
   }
 }
 
 @media (max-width: 600px) {
-  .nav-text {
-    display: none;
-  }
-  
-  .nav-link {
-    flex-direction: row;
-    gap: 0.5rem;
-  }
-  
+  /* On very small screens, numbers are still visible in the drawer */
   .nav-number {
-    margin-bottom: 0;
+    font-size: 0.75rem;
   }
 }
 </style>

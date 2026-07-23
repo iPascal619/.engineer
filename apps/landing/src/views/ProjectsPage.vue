@@ -1,7 +1,13 @@
 <template>
   <div class="projects-page">
-    <!-- Minimal Header with Theme Toggle -->
+    <!-- Minimal Header with Theme Toggle + Back Link -->
     <div class="minimal-header">
+      <router-link to="/" class="back-home-link">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M19 12H5M12 19L5 12L12 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        <span>Home</span>
+      </router-link>
       <button class="theme-toggle" @click="toggleTheme">
         <svg v-if="!isDarkMode" width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
@@ -25,15 +31,44 @@
       <div class="section-inner">
         <div class="header-content">
           <div class="page-title">
-            <h1 class="projects-heading">
+            <h1 class="projects-heading" data-text-reveal>
               <span class="line">My</span>
               <span class="line">Projects</span>
               <span class="period">.</span>
             </h1>
-            <p class="projects-description">
+            <p class="projects-description" data-reveal>
               A collection of projects I've built using various technologies including web development, 
               mobile applications, and blockchain solutions.
             </p>
+          </div>
+
+          <!-- Filter Tags -->
+          <div class="filter-tags" data-reveal data-reveal-delay="200">
+            <button 
+              class="filter-tag" 
+              :class="{ active: activeFilter === 'all' }"
+              @click="setFilter('all')"
+            >All</button>
+            <button 
+              class="filter-tag" 
+              :class="{ active: activeFilter === 'web' }"
+              @click="setFilter('web')"
+            >Web</button>
+            <button 
+              class="filter-tag" 
+              :class="{ active: activeFilter === 'ai' }"
+              @click="setFilter('ai')"
+            >AI</button>
+            <button 
+              class="filter-tag" 
+              :class="{ active: activeFilter === 'blockchain' }"
+              @click="setFilter('blockchain')"
+            >Blockchain</button>
+            <button 
+              class="filter-tag" 
+              :class="{ active: activeFilter === 'backend' }"
+              @click="setFilter('backend')"
+            >Backend</button>
           </div>
         </div>
       </div>
@@ -42,8 +77,12 @@
     <!-- Projects Grid Section -->
     <section class="projects-showcase">
       <div class="section-inner">
-        <div class="projects-grid">
-          <div class="project-card" v-for="(project, index) in allProjects" :key="index">
+        <div class="projects-grid" data-reveal-stagger>
+          <div 
+            class="project-card reveal-child" 
+            v-for="(project, index) in filteredProjects" 
+            :key="project.id"
+          >
             <div class="project-image-container">
               <img :src="getProjectImage(project)" :alt="project.title" class="project-screenshot" />
               <div class="project-overlay">
@@ -75,13 +114,13 @@
                 </a>
                 <a v-else :href="project.github" target="_blank" class="project-btn primary">
                   <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M9 19C4 20.5 4 16.5 2 16M22 16V19C22 19.5304 21.7893 20.0391 21.4142 20.4142C21.0391 20.7893 20.5304 21 20 21H16C15.4696 21 14.9609 20.7893 14.5858 20.4142C14.2107 20.0391 14 19.5304 14 19V17.5C14 16.5 14.1 16.1 14.5 15.5C11.7 15.2 8.5 14.1 8.5 9.5C8.5 8.3 9 7.3 9.8 6.5C9.6 5.8 9.6 4.8 9.8 4C9.8 4 10.8 3.7 13 5.3C14.1 5 15.4 5 16.5 5C17.6 5 18.9 5 20 5.3C22.2 3.7 23.2 4 23.2 4C23.4 4.8 23.4 5.8 23.2 6.5C24 7.3 24.5 8.3 24.5 9.5C24.5 14.1 21.3 15.2 18.5 15.5C18.9 15.9 19 16.5 19 17.5V19" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M9 19C4 20.5 4 16.5 2 16M16 22V18.13C16.0375 17.6532 15.9731 17.1738 15.811 16.7238C15.6489 16.2738 15.3929 15.8634 15.06 15.52C18.2 15.17 21.5 13.98 21.5 8.52C21.4997 7.12383 20.9627 5.7812 20 4.77C20.4559 3.54851 20.4236 2.19835 19.91 1C19.91 1 18.73 0.650001 16 2.48C13.708 1.85882 11.292 1.85882 9 2.48C6.27 0.650001 5.09 1 5.09 1C4.57638 2.19835 4.54414 3.54851 5 4.77C4.03013 5.7887 3.49252 7.14346 3.5 8.55C3.5 13.97 6.8 15.16 9.94 15.55C9.611 15.89 9.35726 16.2954 9.19531 16.7399C9.03335 17.1844 8.96681 17.6581 9 18.13V22" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                   </svg>
                   View Code
                 </a>
                 <a :href="project.github" target="_blank" class="project-btn secondary">
                   <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M9 19C4 20.5 4 16.5 2 16M22 16V19C22 19.5304 21.7893 20.0391 21.4142 20.4142C21.0391 20.7893 20.5304 21 20 21H16C15.4696 21 14.9609 20.7893 14.5858 20.4142C14.2107 20.0391 14 19.5304 14 19V17.5C14 16.5 14.1 16.1 14.5 15.5C11.7 15.2 8.5 14.1 8.5 9.5C8.5 8.3 9 7.3 9.8 6.5C9.6 5.8 9.6 4.8 9.8 4C9.8 4 10.8 3.7 13 5.3C14.1 5 15.4 5 16.5 5C17.6 5 18.9 5 20 5.3C22.2 3.7 23.2 4 23.2 4C23.4 4.8 23.4 5.8 23.2 6.5C24 7.3 24.5 8.3 24.5 9.5C24.5 14.1 21.3 15.2 18.5 15.5C18.9 15.9 19 16.5 19 17.5V19" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M9 19C4 20.5 4 16.5 2 16M16 22V18.13C16.0375 17.6532 15.9731 17.1738 15.811 16.7238C15.6489 16.2738 15.3929 15.8634 15.06 15.52C18.2 15.17 21.5 13.98 21.5 8.52C21.4997 7.12383 20.9627 5.7812 20 4.77C20.4559 3.54851 20.4236 2.19835 19.91 1C19.91 1 18.73 0.650001 16 2.48C13.708 1.85882 11.292 1.85882 9 2.48C6.27 0.650001 5.09 1 5.09 1C4.57638 2.19835 4.54414 3.54851 5 4.77C4.03013 5.7887 3.49252 7.14346 3.5 8.55C3.5 13.97 6.8 15.16 9.94 15.55C9.611 15.89 9.35726 16.2954 9.19531 16.7399C9.03335 17.1844 8.96681 17.6581 9 18.13V22" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                   </svg>
                   GitHub
                 </a>
@@ -95,7 +134,7 @@
     <!-- Back to Portfolio Section -->
     <section class="back-to-portfolio">
       <div class="section-inner">
-        <div class="cta-content">
+        <div class="cta-content" data-reveal>
           <h2>Time to head back, but come around again - I'm always coding! LOL</h2>
           <button class="back-portfolio-btn" @click="goBack">
             <svg class="arrow-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -114,6 +153,8 @@ import { ref, computed } from 'vue'
 import { useRouter } from 'vue-router'
 import { useAppStore } from '../stores/app'
 import { useSEO } from '../composables/useSEO'
+import { useScrollReveal } from '../composables/useScrollReveal'
+import { useTextReveal } from '../composables/useTextReveal'
 
 // SEO optimization for projects page
 useSEO({
@@ -123,7 +164,11 @@ useSEO({
   canonical: 'https://p4sca1.tech/projects'
 })
 
-// Import project images - using the images from landing/public/img
+// Animation composables
+useScrollReveal()
+useTextReveal()
+
+// Import project images
 const simbaImage = '/img/simbaaa.png'
 const cryptodashImage = '/img/cryptodash.png'
 const stembuddyImage = '/img/Stembuddy.jpg'
@@ -141,6 +186,13 @@ const toggleTheme = () => {
   store.toggleTheme()
 }
 
+// Filter state
+const activeFilter = ref('all')
+
+const setFilter = (filter: string) => {
+  activeFilter.value = filter
+}
+
 // All projects data (7 projects)
 const allProjects = ref([
   {
@@ -150,7 +202,8 @@ const allProjects = ref([
     technologies: ["Vue.js", "Node.js", "MongoDB", "Stripe"],
     github: "https://github.com/iPascal619/Simba-supermarket-online-store-redesign",
     liveDemo: "https://simba-supermarket-online-store-rede.vercel.app/",
-    image: "simba"
+    image: "simba",
+    category: "web"
   },
   {
     id: 2,
@@ -159,7 +212,8 @@ const allProjects = ref([
     technologies: ["HTML", "CSS", "JavaScript", "Node.js", "MongoDB"],
     github: "https://github.com/iPascal619/STEM-BUDDY",
     liveDemo: "https://stem-buddy.netlify.app/",
-    image: "stembuddy"
+    image: "stembuddy",
+    category: "web"
   },
   {
     id: 3,
@@ -168,7 +222,8 @@ const allProjects = ref([
     technologies: ["JavaScript", "Solidity", "Web3.js", "HTML", "CSS"],
     github: "https://github.com/iPascal619/Dapp-project",
     liveDemo: "https://tokenswift.netlify.app/",
-    image: "tokenswift"
+    image: "tokenswift",
+    category: "blockchain"
   },
   {
     id: 4,
@@ -177,7 +232,8 @@ const allProjects = ref([
     technologies: ["Electron", "JavaScript", "Python", "FastAPI", "Machine Learning"],
     github: "https://github.com/iPascal619/Aetherflow_Final-BUILD",
     liveDemo: null,
-    image: "aetherflow"
+    image: "aetherflow",
+    category: "ai"
   },
   {
     id: 5,
@@ -186,7 +242,8 @@ const allProjects = ref([
     technologies: ["Node.js", "Express", "MongoDB", "JavaScript", "Stripe", "TradingView", "Binance API"],
     github: "https://github.com/iPascal619/Crypto-dash",
     liveDemo: "https://cryptodash.tech/",
-    image: "cryptodash"
+    image: "cryptodash",
+    category: "web"
   },
   {
     id: 6,
@@ -195,7 +252,8 @@ const allProjects = ref([
     technologies: ["Next.js", "TypeScript", "React", "Tailwind CSS", "AI/ML", "Vercel"],
     github: "https://github.com/iPascal619/Synapse-AI",
     liveDemo: "https://synapse-ai-omega-one.vercel.app/",
-    image: "synapse-ai"
+    image: "synapse-ai",
+    category: "ai"
   },
   {
     id: 7,
@@ -204,9 +262,16 @@ const allProjects = ref([
     technologies: ["NestJS", "TypeScript", "TypeORM", "SQLite", "JWT", "Swagger"],
     github: "https://github.com/iPascal619/banking-API",
     liveDemo: null,
-    image: "banking-api"
+    image: "banking-api",
+    category: "backend"
   }
 ])
+
+// Filtered projects
+const filteredProjects = computed(() => {
+  if (activeFilter.value === 'all') return allProjects.value
+  return allProjects.value.filter(p => p.category === activeFilter.value)
+})
 
 // Function to get project image
 const getProjectImage = (project: any) => {
@@ -257,52 +322,67 @@ const goBack = () => {
   height: auto;
 }
 
-/* Minimal Header with Theme Toggle */
+/* Minimal Header with Theme Toggle + Back Link */
 .minimal-header {
   position: fixed;
   top: 0;
+  left: 0;
   right: 0;
   z-index: 1000;
-  padding: 2rem;
+  padding: 1.5rem 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: var(--theme-header-bg, rgba(255, 255, 255, 0.85));
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--theme-border);
+}
+
+.back-home-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--theme-text);
+  text-decoration: none;
+  font-size: 0.9rem;
+  font-weight: 500;
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  border: 1px solid var(--theme-border);
+  transition: all var(--transition-normal);
+}
+
+.back-home-link:hover {
+  border-color: var(--color-lime);
+  background: rgba(156, 220, 8, 0.08);
+  color: var(--color-lime);
 }
 
 .theme-toggle {
-  width: 50px;
-  height: 50px;
-  border-radius: 50%;
-  background: rgba(255, 255, 255, 0.1);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  backdrop-filter: blur(10px);
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  background: none;
+  border: 1px solid var(--theme-border);
   color: var(--theme-text);
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
   transition: all var(--transition-normal);
-  position: relative;
 }
 
 .theme-toggle:hover {
-  background: rgba(255, 255, 255, 0.2);
-  border-color: rgba(255, 255, 255, 0.3);
-  transform: scale(1.05);
-}
-
-.dark-mode .theme-toggle {
-  background: rgba(0, 0, 0, 0.2);
-  border-color: rgba(255, 255, 255, 0.1);
-}
-
-.dark-mode .theme-toggle:hover {
-  background: rgba(0, 0, 0, 0.3);
-  border-color: rgba(255, 255, 255, 0.2);
+  border-color: var(--color-lime);
+  background: rgba(156, 220, 8, 0.08);
 }
 
 /* Header Section */
 .projects-header {
   background: var(--theme-section-bg, linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%));
   padding: 8rem 0 4rem;
-  border-bottom: 1px solid rgba(71, 85, 105, 0.1);
+  border-bottom: 1px solid var(--theme-border);
   width: 100%;
 }
 
@@ -331,6 +411,7 @@ const goBack = () => {
   line-height: 0.9;
   margin-bottom: 2rem;
   color: var(--theme-text);
+  font-family: var(--font-family-heading, 'Montserrat', sans-serif);
 }
 
 .projects-heading .line {
@@ -343,11 +424,44 @@ const goBack = () => {
 }
 
 .projects-description {
-  font-size: 1.3rem;
-  line-height: 1.6;
-  color: var(--color-grey);
+  font-size: 1.2rem;
+  line-height: 1.7;
+  color: var(--theme-text-secondary);
   max-width: 600px;
   margin: 0 auto;
+}
+
+/* Filter Tags */
+.filter-tags {
+  display: flex;
+  justify-content: center;
+  gap: 0.75rem;
+  margin-top: 2.5rem;
+  flex-wrap: wrap;
+}
+
+.filter-tag {
+  padding: 0.5rem 1.25rem;
+  border-radius: 100px;
+  border: 1px solid var(--theme-border);
+  background: transparent;
+  color: var(--theme-text-secondary);
+  font-size: 0.85rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all var(--transition-normal);
+  font-family: inherit;
+}
+
+.filter-tag:hover {
+  border-color: var(--color-lime);
+  color: var(--color-lime);
+}
+
+.filter-tag.active {
+  background: var(--color-lime);
+  color: var(--color-black);
+  border-color: var(--color-lime);
 }
 
 /* Projects Showcase Section */
@@ -394,17 +508,18 @@ const goBack = () => {
   position: relative;
   border-radius: 16px;
   overflow: hidden;
-  background: rgba(255, 255, 255, 0.08);
-  border: 1px solid rgba(255, 255, 255, 0.15);
-  transition: transform var(--transition-normal);
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
   padding: 1.5rem;
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
 }
 
 .project-card:hover {
   transform: translateY(-8px);
-  background: rgba(255, 255, 255, 0.12);
-  border-color: rgba(255, 255, 255, 0.25);
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(156, 220, 8, 0.3);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
 }
 
 .project-image-container {
@@ -420,8 +535,8 @@ const goBack = () => {
   width: 100%;
   height: 100%;
   object-fit: contain;
-  background: rgba(255, 255, 255, 0.1);
-  transition: transform var(--transition-normal);
+  background: rgba(255, 255, 255, 0.06);
+  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
   border-radius: 12px;
 }
 
@@ -492,35 +607,13 @@ const goBack = () => {
 }
 
 .tech-tag {
-  background: var(--color-lime);
-  color: var(--color-black);
+  background: rgba(156, 220, 8, 0.15);
+  color: var(--color-lime);
   padding: 0.2rem 0.6rem;
-  border-radius: 8px;
+  border-radius: 6px;
   font-size: 0.7rem;
   font-weight: 500;
-}
-
-.view-more-btn {
-  background: rgba(255, 255, 255, 0.15);
-  border: 1px solid rgba(255, 255, 255, 0.3);
-  color: white;
-  padding: 0.6rem 1.2rem;
-  border-radius: 6px;
-  font-size: 0.8rem;
-  font-weight: 500;
-  cursor: pointer;
-  transition: all var(--transition-normal);
-  backdrop-filter: blur(10px);
-  align-self: flex-start;
-  text-decoration: none;
-  display: inline-block;
-}
-
-.view-more-btn:hover {
-  background: var(--color-lime);
-  color: var(--color-black);
-  border-color: var(--color-lime);
-  transform: translateY(-1px);
+  border: 1px solid rgba(156, 220, 8, 0.2);
 }
 
 /* Project Info Section */
@@ -534,12 +627,13 @@ const goBack = () => {
   font-weight: 600;
   margin-bottom: 0.8rem;
   color: white;
+  font-family: var(--font-family-heading, 'Montserrat', sans-serif);
 }
 
 .project-desc {
-  font-size: 1rem;
+  font-size: 0.95rem;
   line-height: 1.5;
-  color: rgba(255, 255, 255, 0.8);
+  color: rgba(255, 255, 255, 0.7);
   margin-bottom: 1.5rem;
 }
 
@@ -553,9 +647,9 @@ const goBack = () => {
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
-  padding: 0.75rem 1.5rem;
+  padding: 0.65rem 1.25rem;
   border-radius: 8px;
-  font-size: 0.9rem;
+  font-size: 0.85rem;
   font-weight: 500;
   text-decoration: none;
   transition: all var(--transition-normal);
@@ -572,18 +666,18 @@ const goBack = () => {
 .project-btn.primary:hover {
   background: #b8f534;
   transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(168, 224, 47, 0.3);
+  box-shadow: 0 4px 20px rgba(156, 220, 8, 0.3);
 }
 
 .project-btn.secondary {
-  background: rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.08);
   color: white;
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.15);
 }
 
 .project-btn.secondary:hover {
-  background: rgba(255, 255, 255, 0.2);
-  border-color: rgba(255, 255, 255, 0.4);
+  background: rgba(255, 255, 255, 0.85);
+  color: var(--color-black);
   transform: translateY(-2px);
 }
 
@@ -597,7 +691,7 @@ const goBack = () => {
   background: var(--theme-section-bg, white);
   padding: 6rem 0;
   text-align: center;
-  border-top: 1px solid rgba(71, 85, 105, 0.1);
+  border-top: 1px solid var(--theme-border);
 }
 
 .dark-mode .back-to-portfolio {
@@ -616,6 +710,7 @@ const goBack = () => {
   font-weight: 300;
   margin-bottom: 2rem;
   color: var(--theme-text);
+  font-family: var(--font-family-heading, 'Montserrat', sans-serif);
 }
 
 .back-portfolio-btn {
@@ -623,7 +718,7 @@ const goBack = () => {
   border: none;
   border-radius: 12px;
   padding: 1rem 2rem;
-  font-family: var(--font-primary);
+  font-family: inherit;
   font-size: 1rem;
   font-weight: 500;
   color: var(--color-black);
@@ -637,7 +732,7 @@ const goBack = () => {
 .back-portfolio-btn:hover {
   background: #b8f534;
   transform: translateY(-2px);
-  box-shadow: 0 8px 32px rgba(168, 224, 47, 0.3);
+  box-shadow: 0 8px 32px rgba(156, 220, 8, 0.3);
 }
 
 .arrow-icon {
@@ -689,20 +784,28 @@ const goBack = () => {
   .cta-content h2 {
     font-size: 2rem;
   }
+
+  .minimal-header {
+    padding: 1rem;
+  }
 }
 
 @media (max-width: 480px) {
   .projects-header {
-    padding: 4rem 0 3rem;
+    padding: 6rem 0 3rem;
   }
   
   .projects-showcase {
     padding: 4rem 0;
   }
   
-  .back-button {
-    padding: 0.6rem 1.2rem;
-    font-size: 0.85rem;
+  .filter-tags {
+    gap: 0.5rem;
+  }
+
+  .filter-tag {
+    padding: 0.4rem 1rem;
+    font-size: 0.8rem;
   }
 }
 </style>
