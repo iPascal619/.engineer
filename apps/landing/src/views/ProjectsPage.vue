@@ -287,7 +287,7 @@ const filteredProjects = computed(() => {
 const getProjectImage = (project: any) => {
   switch (project.image) {
     case 'minetech':
-      return 'https://raw.githubusercontent.com/iPascal619/Minetech-LLM-and-Traige-support/main/soda.svg'
+      return '/img/MInetech.png'
     case 'simba':
       return simbaImage
     case 'cryptodash':
