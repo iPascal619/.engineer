@@ -307,7 +307,7 @@ import { useSEO } from '../composables/useSEO'
 import { useScrollReveal } from '../composables/useScrollReveal'
 import { useTextReveal } from '../composables/useTextReveal'
 import { useParallax } from '../composables/useParallax'
-import astroImage from '../assets/astro.jpg'
+const astroImage = '/img/Astronaut.svg'
 import simbaImage from '../assets/simbaaa.png'
 
 // SEO optimization for homepage
@@ -702,6 +702,11 @@ onUnmounted(() => {
   position: relative;
   z-index: 1;
   transition: transform var(--transition-normal);
+  background: radial-gradient(circle at top right, rgba(20, 25, 40, 0.95), rgba(10, 15, 25, 1));
+  border-radius: 50%;
+  padding: 1.5rem;
+  border: 1px solid rgba(156, 220, 8, 0.2);
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2), inset 0 0 20px rgba(156, 220, 8, 0.05);
 }
 
 .astro-image:hover {
