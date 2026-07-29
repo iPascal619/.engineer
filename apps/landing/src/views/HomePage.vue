@@ -307,7 +307,7 @@ import { useSEO } from '../composables/useSEO'
 import { useScrollReveal } from '../composables/useScrollReveal'
 import { useTextReveal } from '../composables/useTextReveal'
 import { useParallax } from '../composables/useParallax'
-import astroImage from '../assets/astro.jpg'
+const astroImage = '/img/Astronaut.svg'
 import simbaImage from '../assets/simbaaa.png'
 
 // SEO optimization for homepage
@@ -697,15 +697,16 @@ onUnmounted(() => {
 
 .astro-image {
   width: 100%;
-  max-width: 400px;
+  max-width: none;
   height: auto;
   position: relative;
   z-index: 1;
   transition: transform var(--transition-normal);
+  transform: scale(3.5) translate(-38%, -12%);
 }
 
 .astro-image:hover {
-  transform: translateY(-5px) scale(1.02);
+  transform: scale(3.6) translate(-38%, -14%);
 }
 
 /* Description */
