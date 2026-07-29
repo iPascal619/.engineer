@@ -144,33 +144,39 @@
               @mouseleave="resetTilt(index)"
               :ref="el => { if (el) projectCardRefs[index] = el as HTMLElement }"
             >
-              <div class="project-image-container">
-                <img :src="getProjectImage(project)" :alt="project.title" class="project-screenshot" />
-                <div class="project-image-overlay">
-                  <p class="overlay-desc">{{ project.description }}</p>
-                </div>
+              <div class="folder-tab">
+                <span class="tab-text">{{ project.title.split(' ')[0] }}</span>
               </div>
               
-              <div class="project-info">
-                <h3 class="project-title">{{ project.title }}</h3>
-                <div class="project-tags">
-                  <span class="tech-tag" v-for="tech in project.technologies.slice(0, 3)" :key="tech">{{ tech }}</span>
+              <div class="folder-body">
+                <div class="project-image-container">
+                  <img :src="getProjectImage(project)" :alt="project.title" class="project-screenshot" />
+                  <div class="project-image-overlay">
+                    <p class="overlay-desc">{{ project.description }}</p>
+                  </div>
                 </div>
-                <div class="project-actions">
-                  <a v-if="project.liveDemo" :href="project.liveDemo" target="_blank" class="project-btn primary">
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                      <path d="M18 13V19C18 19.5304 17.7893 20.0391 17.4142 20.4142C17.0391 20.7893 16.5304 21 16 21H5C4.46957 21 3.96086 20.7893 3.58579 20.4142C3.21071 20.0391 3 19.5304 3 19V8C3 7.46957 3.21071 6.96086 3.58579 6.58579C3.96086 6.21071 4.46957 6 5 6H11" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                      <path d="M15 3H21V9" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                      <path d="M10 14L21 3" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                    </svg>
-                    View Project
-                  </a>
-                  <a :href="project.github" target="_blank" class="project-btn secondary">
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                      <path d="M9 19C4 20.5 4 16.5 2 16M16 22V18.13C16.0375 17.6532 15.9731 17.1738 15.811 16.7238C15.6489 16.2738 15.3929 15.8634 15.06 15.52C18.2 15.17 21.5 13.98 21.5 8.52C21.4997 7.12383 20.9627 5.7812 20 4.77C20.4559 3.54851 20.4236 2.19835 19.91 1C19.91 1 18.73 0.650001 16 2.48C13.708 1.85882 11.292 1.85882 9 2.48C6.27 0.650001 5.09 1 5.09 1C4.57638 2.19835 4.54414 3.54851 5 4.77C4.03013 5.7887 3.49252 7.14346 3.5 8.55C3.5 13.97 6.8 15.16 9.94 15.55C9.611 15.89 9.35726 16.2954 9.19531 16.7399C9.03335 17.1844 8.96681 17.6581 9 18.13V22" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                    </svg>
-                    GitHub
-                  </a>
+                
+                <div class="project-info">
+                  <h3 class="project-title">{{ project.title }}</h3>
+                  <div class="project-tags">
+                    <span class="tech-tag" v-for="tech in project.technologies.slice(0, 3)" :key="tech">{{ tech }}</span>
+                  </div>
+                  <div class="project-actions">
+                    <a v-if="project.liveDemo" :href="project.liveDemo" target="_blank" class="project-btn primary">
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M18 13V19C18 19.5304 17.7893 20.0391 17.4142 20.4142C17.0391 20.7893 16.5304 21 16 21H5C4.46957 21 3.96086 20.7893 3.58579 20.4142C3.21071 20.0391 3 19.5304 3 19V8C3 7.46957 3.21071 6.96086 3.58579 6.58579C3.96086 6.21071 4.46957 6 5 6H11" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M15 3H21V9" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M10 14L21 3" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                      </svg>
+                      View Project
+                    </a>
+                    <a :href="project.github" target="_blank" class="project-btn secondary">
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M9 19C4 20.5 4 16.5 2 16M16 22V18.13C16.0375 17.6532 15.9731 17.1738 15.811 16.7238C15.6489 16.2738 15.3929 15.8634 15.06 15.52C18.2 15.17 21.5 13.98 21.5 8.52C21.4997 7.12383 20.9627 5.7812 20 4.77C20.4559 3.54851 20.4236 2.19835 19.91 1C19.91 1 18.73 0.650001 16 2.48C13.708 1.85882 11.292 1.85882 9 2.48C6.27 0.650001 5.09 1 5.09 1C4.57638 2.19835 4.54414 3.54851 5 4.77C4.03013 5.7887 3.49252 7.14346 3.5 8.55C3.5 13.97 6.8 15.16 9.94 15.55C9.611 15.89 9.35726 16.2954 9.19531 16.7399C9.03335 17.1844 8.96681 17.6581 9 18.13V22" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                      </svg>
+                      GitHub
+                    </a>
+                  </div>
                 </div>
               </div>
             </div>
@@ -1398,8 +1404,38 @@ onUnmounted(() => {
 
 .project-card {
   position: relative;
+  will-change: transform;
+  display: flex;
+  flex-direction: column;
+}
+
+.folder-tab {
+  align-self: flex-start;
+  padding: 0.5rem 1.25rem;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-bottom: none;
+  border-radius: 8px 16px 0 0;
+  margin-left: 1.5rem;
+  margin-bottom: -1px;
+  position: relative;
+  z-index: 2;
+  transition: background 0.3s ease, border-color 0.3s ease;
+  clip-path: polygon(0 0, 90% 0, 100% 100%, 0 100%);
+  padding-right: 2rem;
+}
+
+.tab-text {
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--color-lime);
+}
+
+.folder-body {
+  position: relative;
   border-radius: 16px;
-  overflow: hidden;
   background: rgba(255, 255, 255, 0.06);
   border: 1px solid rgba(255, 255, 255, 0.1);
   padding: 1.25rem;
@@ -1408,13 +1444,21 @@ onUnmounted(() => {
               background 0.3s ease,
               border-color 0.3s ease,
               box-shadow 0.3s ease;
-  will-change: transform;
+  z-index: 1;
 }
 
-.project-card:hover {
+.project-card:hover .folder-body,
+.project-card:hover .folder-tab {
   background: rgba(255, 255, 255, 0.1);
   border-color: rgba(156, 220, 8, 0.3);
+}
+
+.project-card:hover .folder-body {
   box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+  transform: translateY(-5px);
+}
+.project-card:hover .folder-tab {
+  transform: translateY(-5px);
 }
 
 .project-image-container {
