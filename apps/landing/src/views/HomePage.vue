@@ -215,7 +215,7 @@
             </div>
             
             <div class="contact-grid" data-reveal-stagger>
-              <a href="https://mail.google.com/mail/?view=cm&fs=1&to=pascalonuoha324@gmail.com&su=Hello%20Pascal!&body=Hi%20Pascal,%0A%0AI%20found%20your%20portfolio%20and%20would%20like%20to%20connect..." target="_blank" class="contact-card email-card glass-card reveal-child">
+              <button @click="copyEmail" class="contact-card email-card glass-card reveal-child" style="border: none; width: 100%; cursor: pointer; font-family: inherit; appearance: none;">
                 <div class="contact-icon">
                   <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M4 4H20C21.1 4 22 4.9 22 6V18C22 19.1 21.1 20 20 20H4C2.9 20 2 19.1 2 18V6C2 4.9 2.9 4 4 4Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
@@ -223,10 +223,10 @@
                   </svg>
                 </div>
                 <div class="contact-details">
-                  <h4>Email</h4>
+                  <h3>{{ emailCopied ? 'Copied!' : 'Email' }}</h3>
                   <p>pascalonuoha324@gmail.com</p>
                 </div>
-              </a>
+              </button>
               
               <a href="https://github.com/iPascal619" target="_blank" class="contact-card github-card glass-card reveal-child">
                 <div class="contact-icon">
@@ -334,6 +334,20 @@ const aetherflowImage = '/img/Aetherflow.jpg'
 
 const store = useAppStore()
 const { contactClickedFromNav } = storeToRefs(store)
+
+const emailCopied = ref(false)
+
+const copyEmail = async () => {
+  try {
+    await navigator.clipboard.writeText('pascalonuoha324@gmail.com')
+    emailCopied.value = true
+    setTimeout(() => {
+      emailCopied.value = false
+    }, 2500)
+  } catch (err) {
+    console.error('Failed to copy email: ', err)
+  }
+}
 
 // Experience Interactive Showcase State
 const activeExperience = ref(0)
@@ -637,7 +651,7 @@ onUnmounted(() => {
   line-height: 1.05;
   margin-bottom: 1.5rem;
   color: var(--theme-text);
-  font-family: 'Montserrat', var(--font-family-heading);
+  font-family: 'Poppins', var(--font-family-heading);
 }
 
 .pitch-heading .name-line {
@@ -998,8 +1012,8 @@ onUnmounted(() => {
   gap: 1rem;
   padding: 1.25rem 1.5rem;
   background: transparent;
-  border: none;
-  border-radius: 12px;
+  border: 1px solid transparent;
+  border-radius: 6px;
   cursor: pointer;
   color: var(--theme-text-secondary);
   font-family: var(--font-family-primary);
@@ -1018,7 +1032,8 @@ onUnmounted(() => {
 }
 
 .showcase-tab.active {
-  background: rgba(156, 220, 8, 0.1);
+  background: rgba(156, 220, 8, 0.08);
+  border: 1px solid rgba(156, 220, 8, 0.2);
   color: var(--color-lime);
   transform: translateX(8px);
 }
@@ -1051,7 +1066,7 @@ onUnmounted(() => {
   width: 28px;
   height: 28px;
   min-width: 28px;
-  border-radius: 6px;
+  border-radius: 4px;
   padding: 5px;
   background: rgba(156, 220, 8, 0.1);
   flex-shrink: 0;
@@ -1132,22 +1147,19 @@ onUnmounted(() => {
 
 /* High-Fidelity Glassmorphic Experience Cards (Shared) */
 .glass-card-premium {
-  border-radius: 20px;
-  background: rgba(255, 255, 255, 0.03);
-  backdrop-filter: blur(24px);
-  -webkit-backdrop-filter: blur(24px);
-  border-top: 1px solid rgba(255, 255, 255, 0.1);
-  border-right: 1px solid rgba(255, 255, 255, 0.05);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-  border-left: 1px solid rgba(255, 255, 255, 0.05);
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.02);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.1);
   transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
 }
 
 .dark-mode .glass-card-premium {
-  background: rgba(30, 41, 59, 0.6);
-  border-top: 1px solid rgba(255, 255, 255, 0.1);
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.05);
+  background: rgba(15, 23, 42, 0.4);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.25);
 }
 
 .exp-period {
@@ -1434,6 +1446,9 @@ onUnmounted(() => {
 }
 
 .folder-body {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
   position: relative;
   border-radius: 16px;
   background: rgba(255, 255, 255, 0.06);
@@ -1473,8 +1488,8 @@ onUnmounted(() => {
 .project-screenshot {
   width: 100%;
   height: 100%;
-  object-fit: contain;
-  background: rgba(255, 255, 255, 0.06);
+  object-fit: cover;
+  object-position: top center;
   transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
   border-radius: 12px;
 }
@@ -1507,8 +1522,10 @@ onUnmounted(() => {
   margin: 0;
 }
 
-/* Project Info */
 .project-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
   padding: 0.5rem 0 0;
   color: white;
   text-align: left;
@@ -1543,6 +1560,7 @@ onUnmounted(() => {
 .project-actions {
   display: flex;
   gap: 0.8rem;
+  margin-top: auto;
 }
 
 .project-btn {
@@ -1958,7 +1976,13 @@ onUnmounted(() => {
   }
   
   .astro-image {
-    max-width: 300px;
+    max-width: 320px;
+    margin: 1rem auto 3rem;
+    transform: scale(2.8) translate(-38%, -10%);
+  }
+  
+  .astro-image:hover {
+    transform: scale(2.9) translate(-38%, -12%);
   }
   
   .pitch-heading {

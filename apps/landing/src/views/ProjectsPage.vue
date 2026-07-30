@@ -423,7 +423,7 @@ const goBack = () => {
   line-height: 0.9;
   margin-bottom: 2rem;
   color: var(--theme-text);
-  font-family: var(--font-family-heading, 'Montserrat', sans-serif);
+  font-family: var(--font-family-heading, 'Poppins', sans-serif);
 }
 
 .projects-heading .line {
@@ -639,7 +639,7 @@ const goBack = () => {
   font-weight: 600;
   margin-bottom: 0.8rem;
   color: white;
-  font-family: var(--font-family-heading, 'Montserrat', sans-serif);
+  font-family: var(--font-family-heading, 'Poppins', sans-serif);
 }
 
 .project-desc {
@@ -722,7 +722,7 @@ const goBack = () => {
   font-weight: 300;
   margin-bottom: 2rem;
   color: var(--theme-text);
-  font-family: var(--font-family-heading, 'Montserrat', sans-serif);
+  font-family: var(--font-family-heading, 'Poppins', sans-serif);
 }
 
 .back-portfolio-btn {

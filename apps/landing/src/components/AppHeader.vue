@@ -188,7 +188,7 @@ const scrollToSection = (sectionId: string) => {
 
 .brand-text {
   position: relative;
-  font-family: 'Montserrat', sans-serif;
+  font-family: 'Poppins', sans-serif;
   font-weight: 400;
   font-size: 1.4rem;
 }
